@@ -17,6 +17,9 @@ import (
 	"strings"
 	"time"
 
+	"runtime"
+	_ "net/http/pprof"
+
 	"github.com/go-sql-driver/mysql"
 	"github.com/gorilla/sessions"
 	"github.com/jmoiron/sqlx"
@@ -755,6 +758,11 @@ func main() {
 	e.GET("add_channel", getAddChannel)
 	e.POST("add_channel", postAddChannel)
 	e.GET("/icons/:file_name", getIcon)
+
+	// ---------------------------
+	// 追加: pprofのエンドポイントを設定
+	// ---------------------------
+	e.Any("/debug/pprof/*", echo.WrapHandler(http.DefaultServeMux))
 
 	e.Start(":5000")
 }

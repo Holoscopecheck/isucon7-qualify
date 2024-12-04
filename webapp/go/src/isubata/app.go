@@ -730,11 +730,6 @@ func main() {
 		"xrange": tRange,
 	}
 
-	// ---------------------------
-	// 追加: pprofのエンドポイントを設定
-	// ---------------------------
-	e.Any("/debug/pprof/*", echo.WrapHandler(http.DefaultServeMux))
-	
 	e.Renderer = &Renderer{
 		templates: template.Must(template.New("").Funcs(funcs).ParseGlob("views/*.html")),
 	}
